@@ -1,0 +1,4 @@
+name: hott-mgs
+include: .
+flags: --no-import-sorts --without-K 
+
