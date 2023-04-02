@@ -7,14 +7,17 @@ open import Groupoid
 
 module Equivalence where
 
-  record is-equiv {ℓ} {X Y : Type ℓ} (f : X → Y) : Type ℓ where
+  record is-equiv {ℓ₀ ℓ₁} {X : Type ℓ₀} {Y : Type ℓ₁} (f : X → Y) : Type (ℓ-max ℓ₀ ℓ₁) where
     field
       inv-l : Y → X
       inv-r : Y → X
       η : (x : X) → inv-l (f x) ≡ x
       ϵ : (y : Y) → f (inv-r y) ≡ y 
 
-  module _ {ℓ} {X Y : Type ℓ} (f : X → Y) (f-eqv : is-equiv f) where
+  _≃_ : ∀ {ℓ₀ ℓ₁} → Type ℓ₀ → Type ℓ₁ → Type (ℓ-max ℓ₀ ℓ₁)
+  X ≃ Y = Σ[ f ∈ (X → Y) ] is-equiv f
+  
+  module _ {ℓ₀ ℓ₁} {X : Type ℓ₀} {Y : Type ℓ₁} (f : X → Y) (f-eqv : is-equiv f) where
 
     open is-equiv f-eqv
     

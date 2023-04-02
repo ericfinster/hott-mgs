@@ -66,10 +66,10 @@ x ≡⟨ refl ⟩ refl = refl
 _∎ : ∀ {ℓ} {X : Type ℓ} (x : X) → x ≡ x
 x ∎ = refl 
 
-_~_ : ∀ {ℓ} {X Y : Type ℓ} (f g : X → Y) → Type ℓ
+_~_ : ∀ {ℓ₀ ℓ₁} {X : Type ℓ₀} {Y : Type ℓ₁} (f g : X → Y) → Type (ℓ-max ℓ₀ ℓ₁)
 _~_ {X = X} f g = (x : X) → f x ≡ g x 
 
 postulate
 
-  funext : ∀ {ℓ} {X Y : Type ℓ} {f g : X → Y} → f ~ g → f ≡ g 
+  funext : ∀ {ℓ₀ ℓ₁} {X : Type ℓ₀} {Y : Type ℓ₁} {f g : X → Y} → f ~ g → f ≡ g 
 
