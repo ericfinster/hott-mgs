@@ -17,4 +17,4 @@ module NType where
   is-of-type ⟨-2⟩ X = is-contr X
   is-of-type (S n) X = (x y : X) → is-of-type n (x ≡ y)
 
-
+  
