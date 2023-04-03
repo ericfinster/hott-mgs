@@ -1,5 +1,5 @@
 --
---  Groupoid.agda - Gropuoid laws
+--  Groupoid.agda - Groupoid laws
 --
 
 open import Prelude
