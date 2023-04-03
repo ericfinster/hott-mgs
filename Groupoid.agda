@@ -25,8 +25,17 @@ module Groupoid where
 
     sym : ∀ {x y : X} → x ≡ y → y ≡ x
     sym refl = refl
+
+    sym-comp : ∀ {x y : X} (p : x ≡ y) → sym p ∙ p ≡ refl
+    sym-comp refl = refl
     
   module _ {ℓ₀ ℓ₁} {X : Type ℓ₀} {Y : Type ℓ₁} where
 
     ap : (f : X → Y) {x y : X} (p : x ≡ y) → f x ≡ f y
-    ap f refl = refl 
+    ap f refl = refl
+
+    ap-comp : (f : X → Y) {x y z : X} (p : x ≡ y) (q : y ≡ z) → ap f (p ∙ q) ≡ (ap f p) ∙ (ap f q)
+    ap-comp f refl refl = refl
+
+    ap-sym : (f : X → Y) {x y : X} (p : x ≡ y) → sym (ap f p) ≡ ap f (sym p)
+    ap-sym f refl = refl
