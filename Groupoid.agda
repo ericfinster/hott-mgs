@@ -28,6 +28,10 @@ module Groupoid where
 
     sym-comp : ∀ {x y : X} (p : x ≡ y) → sym p ∙ p ≡ refl
     sym-comp refl = refl
+
+    -- Exercise 2.1
+    transport : ∀ {ℓ₁} (P : X → Type ℓ₁) {x y : X} → x ≡ y → P x → P y
+    transport P refl w = w
     
   module _ {ℓ₀ ℓ₁} {X : Type ℓ₀} {Y : Type ℓ₁} where
 
