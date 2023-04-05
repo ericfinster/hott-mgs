@@ -47,6 +47,9 @@ module Equivalence where
     transport-comp : ∀ {x y z : X} (p : y ≡ z) → transport (λ w → x ≡ w) p ≡ ((_∙ p))
     transport-comp refl = funext λ q → sym(unit-r q)
     
+  --
+  -- Univalence
+  --
 
   id-equiv : ∀ {ℓ} (X : Type ℓ) → X ≃ X
   id-equiv X = (λ x → x) , record { inv-l = λ x → x ; inv-r = λ x → x ; η = λ x → refl ; ϵ = λ x → refl } 
@@ -63,3 +66,21 @@ module Equivalence where
   equiv-to-id : ∀ {ℓ} {X Y : Type ℓ} → X ≃ Y → X ≡ Y
   equiv-to-id {X = X} {Y} e = inv-l (ua {X = X} {Y}) e  
 
+  --
+  -- Exercise 2.4
+  --
+  module _ {ℓ₀ ℓ₁} {A : Type ℓ₀} {B : A → Type ℓ₁} {a₀ a₁ : A} {b₀ : B a₀} {b₁ : B a₁} where
+    Σ≡-unwrap : ((a₀ , b₀) ≡ (a₁ , b₁)) →  (Σ[ a₂ ∈ a₀ ≡ a₁ ] transport B a₂ b₀ ≡ b₁)
+    Σ≡-unwrap refl = refl , refl
+
+    Σ≡-wrap : (Σ[ a₂ ∈ a₀ ≡ a₁ ] transport B a₂ b₀ ≡ b₁) → ((a₀ , b₀) ≡ (a₁ , b₁))
+    Σ≡-wrap (refl , refl) = refl
+
+    Σ≡-η : (p : (a₀ , b₀) ≡ (a₁ , b₁)) → Σ≡-wrap (Σ≡-unwrap p) ≡ p
+    Σ≡-η refl = refl
+
+    Σ≡-ϵ : (q : Σ[ a₂ ∈ a₀ ≡ a₁ ] transport B a₂ b₀ ≡ b₁) → Σ≡-unwrap (Σ≡-wrap q) ≡ q
+    Σ≡-ϵ (refl , refl) = refl
+
+    Σ≡ : ((a₀ , b₀) ≡ (a₁ , b₁)) ≃ (Σ[ a₂ ∈ a₀ ≡ a₁ ] transport B a₂ b₀ ≡ b₁)
+    Σ≡ = Σ≡-unwrap , record { inv-l = Σ≡-wrap ; inv-r = Σ≡-wrap ; η = Σ≡-η ; ϵ = Σ≡-ϵ } 
