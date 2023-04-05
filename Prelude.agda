@@ -18,6 +18,18 @@ open import Agda.Primitive public
 open import Agda.Builtin.Sigma public
 
 --
+--  Rewriting
+--
+
+infix 10 _↦_
+
+postulate  
+  _↦_ : ∀ {ℓ} {A : Type ℓ} → A → A → Type ℓ
+
+{-# BUILTIN REWRITE _↦_ #-}
+
+
+--
 --  Sigma Types
 --
 

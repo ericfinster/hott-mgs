@@ -1,4 +1,4 @@
 name: hott-mgs
 include: .
-flags: --no-import-sorts --without-K 
+flags: --no-import-sorts --without-K --rewriting
 
