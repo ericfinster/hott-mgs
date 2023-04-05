@@ -43,3 +43,18 @@ module Groupoid where
 
     ap-sym : (f : X → Y) {x y : X} (p : x ≡ y) → sym (ap f p) ≡ ap f (sym p)
     ap-sym f refl = refl
+
+  --
+  --  Transports and PathOvers
+  --
+
+  PathOver : ∀ {ℓ₀ ℓ₁} {X : Type ℓ₀} (P : X → Type ℓ₁)
+    → {x y : X} (p : x ≡ y) (a : P x) (b : P y)
+    → Type ℓ₁
+  PathOver P refl a b = a ≡ b
+
+  apd : ∀ {ℓ₀ ℓ₁} {X : Type ℓ₀} (P : X → Type ℓ₁)
+    → (f : (x : X) → P x)
+    → {x y : X} (p : x ≡ y)
+    → PathOver P p (f x) (f y)
+  apd P f refl = refl
