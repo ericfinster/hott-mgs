@@ -28,3 +28,18 @@ module Equivalence where
             lem y = inv-l y               ≡⟨ ap inv-l (sym (ϵ y)) ⟩
                     inv-l (f (inv-r y))   ≡⟨ η (inv-r y) ⟩
                     inv-r y ∎ 
+
+  id-equiv : ∀ {ℓ} (X : Type ℓ) → X ≃ X
+  id-equiv X = (λ x → x) , record { inv-l = λ x → x ; inv-r = λ x → x ; η = λ x → refl ; ϵ = λ x → refl } 
+
+  id-to-equiv : ∀ {ℓ} (X Y : Type ℓ) → X ≡ Y → X ≃ Y
+  id-to-equiv X .X refl = id-equiv X
+
+  open is-equiv
+  
+  postulate
+
+    ua : ∀ {ℓ} {X Y : Type ℓ} → is-equiv (id-to-equiv X Y)
+
+  equiv-to-id : ∀ {ℓ} {X Y : Type ℓ} → X ≃ Y → X ≡ Y
+  equiv-to-id {X = X} {Y} e = inv-l (ua {X = X} {Y}) e  
