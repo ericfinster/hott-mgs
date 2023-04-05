@@ -27,7 +27,6 @@ module Equivalence where
       where lem : inv-l ~ inv-r
             lem y = inv-l y               ≡⟨ ap inv-l (sym (ϵ y)) ⟩
                     inv-l (f (inv-r y))   ≡⟨ η (inv-r y) ⟩
-
                     inv-r y ∎
     
     -- Exercise 2.2
@@ -47,7 +46,7 @@ module Equivalence where
     -- Exercise 2.3
     transport-comp : ∀ {x y z : X} (p : y ≡ z) → transport (λ w → x ≡ w) p ≡ ((_∙ p))
     transport-comp refl = funext λ q → sym(unit-r q)
-                         inv-r y ∎ 
+    
 
   id-equiv : ∀ {ℓ} (X : Type ℓ) → X ≃ X
   id-equiv X = (λ x → x) , record { inv-l = λ x → x ; inv-r = λ x → x ; η = λ x → refl ; ϵ = λ x → refl } 
